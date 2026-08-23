@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS2 VIP P2P Market | Garant</title>
-    <!-- Google Sign-In SDK -->
+    <!-- Google Identity Services Kutubxonasi -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
@@ -91,10 +91,10 @@
         .buy-btn:hover { opacity: 0.95; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.85); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
-        .modal-content { background: #1e293b; padding: 25px; border-radius: 16px; width: 400px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.7); max-height: 90vh; overflow-y: auto; }
+        .modal-content { background: #1e293b; padding: 25px; border-radius: 16px; width: 400px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.7); max-height: 90vh; overflow-y: auto; text-align: center; }
         .modal-content h2 { margin-bottom: 12px; font-size: 20px; color: #38bdf8; font-weight: 700; }
-        .modal-content p { font-size: 13px; margin-bottom: 12px; color: #94a3b8; line-height: 1.5; }
-        .modal-content input { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 8px; outline: none; font-size: 14px; }
+        .modal-content p { font-size: 13px; margin-bottom: 16px; color: #94a3b8; line-height: 1.5; }
+        .modal-content input { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 8px; outline: none; font-size: 14px; text-align: left; }
         .modal-content button { width: 100%; padding: 10px; background: #38bdf8; border: none; color: #020617; font-weight: 700; border-radius: 8px; cursor: pointer; margin-top: 5px; }
         .close-btn { background: #ef4444 !important; color: white !important; margin-top: 8px; }
         .card-info { background: #0f172a; padding: 12px; border-radius: 8px; border: 1px dashed #38bdf8; color: #38bdf8; font-family: monospace; font-size: 15px; margin-bottom: 15px; text-align: center; }
@@ -111,13 +111,6 @@
     <header>
         <h1>⚡ CS2 VIP P2P Market</h1>
         <div class="user-panel" id="userPanel">
-            <!-- Google Sign In Button Container -->
-            <div id="g_id_onload"
-                 data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-                 data-callback="handleCredentialResponse">
-            </div>
-            <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_black"></div>
-
             <span>Balans: <span class="balance" id="userBalance">0 so'm</span></span>
             <button class="deposit-btn" onclick="openDeposit()">Hisobni to'ldirish</button>
             <button class="sell-skin-btn" onclick="openSellModal()">Skin sotish</button>
@@ -131,6 +124,19 @@
     </div>
 
     <div class="container" id="product-list"></div>
+
+    <!-- Google Login Modal (Majburiy Kirish) -->
+    <div class="modal" id="googleLoginModal" style="display: flex;">
+        <div class="modal-content">
+            <h2>Xush Kelibsiz!</h2>
+            <p>Saytdan foydalanish uchun rasmiy Google akkountingiz orqali tizimga kiring:</p>
+            
+            <!-- Google rasmiy tugmasi chiqadigan joy -->
+            <div id="googleBtnContainer" style="display: flex; justify-content: center; margin: 20px 0;"></div>
+            
+            <p style="font-size: 11px; color: #64748b;">Google xavfsizlik protokoli orqali ma'lumotlaringiz to'liq himoyalanadi.</p>
+        </div>
+    </div>
 
     <!-- Depozit Modal -->
     <div class="modal" id="depositModal">
@@ -155,7 +161,7 @@
             <input type="text" id="mySkinName" placeholder="Skin nomi (masalan: AWP | Asiimov)">
             <input type="number" id="mySkinPrice" placeholder="Narxi ($ da, masalan: 15)">
             <input type="text" id="mySkinImg" placeholder="Skin rasmi URL manzili">
-            <input type="text" id="myTgUsername" placeholder="Sizning Telegram username (@ bilan, masalan: @username)">
+            <input type="text" id="myTgUsername" placeholder="Sizning Telegram username (@ bilan)">
             <button onclick="publishSkin()" style="background: #a855f7; color: white;">E'lonni joylash (4,000 so'm)</button>
             <button class="close-btn" onclick="closeSellModal()">Yopish</button>
         </div>
@@ -167,7 +173,7 @@
             <h2>Admin Panel</h2>
             <hr style="border:0; border-top:1px solid #334155; margin: 12px 0;">
             
-            <h3 style="font-size: 14px; color: #facc15; margin-bottom: 6px;">📥 Depozit so'rovlari (Ruxsat berish):</h3>
+            <h3 style="font-size: 14px; color: #facc15; margin-bottom: 6px;">📥 Depozit so'rovlari:</h3>
             <div id="adminRequestsList" style="max-height: 180px; overflow-y: auto; margin-bottom: 15px;">
                 <p style="color: #64748b; font-size: 12px;">Hozircha so'rovlar yo'q.</p>
             </div>
@@ -190,23 +196,50 @@
         let products = []; 
         
         const ADMIN_SECRET_CODE = "krptochi_admin_2026";
+        // DIQQAT: O'z Google Client ID ingizni shu yerga qo'ying (Google Cloud Console'dan olinadi)
+        const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"; 
 
-        // Google orqali kirganda ishlaydigan funksiya (JWT tokenni ochib ism va emailni olish)
-        function handleCredentialResponse(response) {
-            const responsePayload = parseJwt(response.credential);
-            userName = responsePayload.name;
-            userEmail = responsePayload.email;
+        window.onload = function() {
+            initGoogleAuth();
+            renderProducts();
             updatePanelUI();
-            alert(`Xush kelibsiz, ${userName} (${userEmail})! Google akkountingiz muvaffaqiyatli ulandi.`);
+        };
+
+        // Google avtorizatsiyasini sozlash
+        function initGoogleAuth() {
+            google.accounts.id.initialize({
+                client_id: GOOGLE_CLIENT_ID,
+                callback: handleCredentialResponse
+            });
+
+            google.accounts.id.renderButton(
+                document.getElementById("googleBtnContainer"),
+                { theme: "outline", size: "large", width: 280, text: "signin_with" }
+            );
         }
 
-        function parseJwt(token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
+        // Google orqali kirish muvaffaqiyatli bajarilganda
+        function handleCredentialResponse(response) {
+            try {
+                // JWT tokenni dekod qilish (Google ma'lumotlarini olish uchun)
+                let base64Url = response.credential.split('.')[1];
+                let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                let googleUser = JSON.parse(jsonPayload);
+                
+                userName = googleUser.name;
+                userEmail = googleUser.email;
+
+                // Modal oynani yopish
+                document.getElementById('googleLoginModal').style.display = 'none';
+                updatePanelUI();
+                alert(`Xush kelibsiz, ${userName}! (${userEmail})`);
+            } catch (error) {
+                alert("Google orqali kirishda xatolik yuz berdi!");
+            }
         }
 
         function renderProducts() {
@@ -223,7 +256,7 @@
                         <img src="${p.img}" alt="${p.name}">
                         <h3>${p.name}</h3>
                         <div class="seller-info">Sotuvchi: <b>${p.seller}</b></div>
-                        <div class="garant-warning">⚠️ Bir-biringiz bilan bevosita savdo qilmang! Ortaga admin tushadi (@krptochi).</div>
+                        <div class="garant-warning">⚠️ Bevosita savdo qilmang! Ortaga admin tushadi (@krptochi).</div>
                         <p>$${p.price.toFixed(2)}</p>
                         <a href="https://t.me/${cleanTg}" target="_blank" class="buy-btn">Sotib olish uchun yozish</a>
                     </div>
@@ -233,9 +266,10 @@
 
         function updatePanelUI() {
             const panel = document.getElementById('userPanel');
-            let userDisplay = userName ? `<span style="color: #38bdf8; font-weight: 600;" title="${userEmail}">👤 ${userName}</span>` : `<span style="color: #ef4444; font-size: 12px;">Google orqali kiring ➡️</span>`;
+            let userDisplay = userName ? 
+                `<span style="color: #4ade80; font-weight: 600;" title="${userEmail}">🟢 ${userName}</span>` : 
+                `<span style="color: #ef4444; font-size: 12px;">Kirmagan</span>`;
             
-            // Google tugmasini agar kirilgan bo'lsa yashirish, bo'lmasa ko'rsatish mumkin
             panel.innerHTML = `
                 ${userDisplay}
                 <span>Balans: <span class="balance" id="userBalance">${balance.toLocaleString()} so'm</span></span>
@@ -257,7 +291,7 @@
 
         function openDeposit() { 
             if(!userName) {
-                alert("Balansni to'ldirish uchun avval Google akkountingiz bilan kiring!");
+                document.getElementById('googleLoginModal').style.display = 'flex';
                 return;
             }
             document.getElementById('depositModal').style.display = 'flex'; 
@@ -266,7 +300,7 @@
 
         function openSellModal() {
             if(!userName) {
-                alert("Skin sotish uchun avval Google akkountingiz bilan kiring!");
+                document.getElementById('googleLoginModal').style.display = 'flex';
                 return;
             }
             if(!tradeLink) {
@@ -312,17 +346,13 @@
 
         function sendDepositRequest() {
             let amount = parseFloat(document.getElementById('depositAmount').value);
-            if(!userName) {
-                alert("Xatolik! Google akkountga ulanmagansiz.");
-                return;
-            }
             if(isNaN(amount) || amount <= 0) {
                 alert("To'g'ri summa kiriting!");
                 return;
             }
 
             pendingRequests.push({ user: userName, amount: amount });
-            alert("Depozit so'rovingiz adminga yuborildi! Admin ruxsat bergach balansingizga qo'shiladi.");
+            alert("Depozit so'rovingiz adminga yuborildi! Admin tasdiqlagach balansingizga qo'shiladi.");
             document.getElementById('depositAmount').value = '';
             closeDeposit();
         }
@@ -376,9 +406,6 @@
                 alert("Summani to'g'ri kiriting!");
             }
         }
-
-        renderProducts();
-        updatePanelUI();
     </script>
 </body>
 </html>
