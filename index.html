@@ -3,76 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 VIP Shop - Premium Market</title>
+    <title>CS2 VIP Market | Premium Skins</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
         body { 
-            background: linear-gradient(135deg, #090d16 0%, #111827 50%, #1f2937 100%); 
+            background: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 50%, #020617 100%); 
             color: #f8fafc; 
-            padding: 20px; 
+            padding: 25px; 
             min-height: 100vh;
         }
         header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             border-bottom: 1px solid rgba(56, 189, 248, 0.2); 
-            padding-bottom: 15px; 
+            padding-bottom: 20px; 
             flex-wrap: wrap; 
-            gap: 15px; 
+            gap: 20px; 
         }
-        h1 { color: #38bdf8; font-size: 26px; text-shadow: 0 0 10px rgba(56,189,248,0.3); }
+        h1 { color: #38bdf8; font-size: 28px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 0 20px rgba(56,189,248,0.4); display: flex; align-items: center; gap: 10px; }
         
-        .user-panel { display: flex; align-items: center; gap: 12px; background: rgba(30, 41, 59, 0.8); padding: 10px 18px; border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3); backdrop-filter: blur(5px); flex-wrap: wrap; }
-        .balance { color: #22c55e; font-weight: bold; font-size: 18px; }
-        .deposit-btn { background: #38bdf8; color: #000; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
-        .deposit-btn:hover { background: #0ea5e9; }
-        .admin-btn { background: linear-gradient(135deg, #eab308, #ca8a04); color: #000; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .admin-btn:hover { opacity: 0.9; transform: scale(1.05); }
+        .user-panel { display: flex; align-items: center; gap: 15px; background: rgba(30, 41, 59, 0.7); padding: 10px 20px; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3); backdrop-filter: blur(10px); flex-wrap: wrap; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+        .balance { color: #4ade80; font-weight: bold; font-size: 18px; text-shadow: 0 0 10px rgba(74,222,128,0.3); }
+        
+        /* Google Login Button Style */
+        .google-btn { background: #ffffff; color: #1e293b; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 12px rgba(255,255,255,0.1); }
+        .google-btn:hover { background: #f1f5f9; transform: translateY(-2px); }
+        .google-btn img { width: 16px; height: 16px; }
+
+        .deposit-btn { background: #38bdf8; color: #020617; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; transition: 0.3s; }
+        .deposit-btn:hover { background: #0ea5e9; transform: translateY(-2px); }
+        
+        .admin-btn { background: linear-gradient(135deg, #eab308, #ca8a04); color: #000; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; transition: 0.3s; }
+        .admin-btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
         /* Trade Link qismi */
-        .trade-section { background: rgba(30, 41, 59, 0.7); padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid rgba(56, 189, 248, 0.2); display: flex; gap: 10px; align-items: center; backdrop-filter: blur(5px); }
-        .trade-section input { flex: 1; padding: 12px; background: #0b0f19; border: 1px solid #334155; color: white; border-radius: 6px; outline: none; }
-        .trade-section input:focus { border-color: #38bdf8; }
-        .trade-section button { background: #38bdf8; color: #000; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
-        .trade-section button:hover { background: #0ea5e9; }
+        .trade-section { background: rgba(30, 41, 59, 0.5); padding: 18px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(56, 189, 248, 0.2); display: flex; gap: 12px; align-items: center; backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+        .trade-section input { flex: 1; padding: 12px 16px; background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; border-radius: 8px; outline: none; font-size: 14px; transition: 0.3s; }
+        .trade-section input:focus { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56,189,248,0.2); }
+        .trade-section button { background: #38bdf8; color: #020617; border: none; padding: 12px 24px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .trade-section button:hover { background: #0ea5e9; transform: translateY(-2px); }
 
-        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         .card { 
-            background: rgba(30, 41, 59, 0.6); 
-            border-radius: 14px; 
-            padding: 15px; 
+            background: rgba(30, 41, 59, 0.4); 
+            border-radius: 16px; 
+            padding: 20px; 
             text-align: center; 
             border: 1px solid rgba(255, 255, 255, 0.05); 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            transition: 0.3s; 
-            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            backdrop-filter: blur(10px);
         }
-        .card:hover { transform: translateY(-6px); border-color: #38bdf8; box-shadow: 0 8px 25px rgba(56,189,248,0.2); }
-        .card img { width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5)); }
-        .card h3 { font-size: 16px; margin-bottom: 5px; color: #e2e8f0; }
-        .card p { color: #38bdf8; font-weight: bold; font-size: 17px; margin-bottom: 15px; }
-        .buy-btn { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; padding: 10px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .buy-btn:hover { opacity: 0.9; transform: scale(1.02); }
+        .card:hover { transform: translateY(-8px); border-color: rgba(56, 189, 248, 0.5); box-shadow: 0 20px 40px rgba(56,189,248,0.15); }
+        .card img { width: 100%; height: 160px; object-fit: contain; margin-bottom: 15px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6)); transition: 0.3s; }
+        .card:hover img { transform: scale(1.05); }
+        .card h3 { font-size: 17px; margin-bottom: 8px; color: #f1f5f9; font-weight: 600; }
+        .card p { color: #38bdf8; font-weight: 800; font-size: 19px; margin-bottom: 18px; text-shadow: 0 0 10px rgba(56,189,248,0.2); }
+        .buy-btn { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 15px; transition: 0.3s; box-shadow: 0 4px 15px rgba(34,197,94,0.3); }
+        .buy-btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(34,197,94,0.4); }
 
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
-        .modal-content { background: #1e293b; padding: 25px; border-radius: 14px; width: 380px; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .modal-content h2 { margin-bottom: 15px; font-size: 20px; color: #38bdf8; }
-        .modal-content p { font-size: 14px; margin-bottom: 12px; color: #cbd5e1; line-height: 1.5; }
-        .modal-content input { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; outline: none; }
-        .modal-content button { width: 100%; padding: 10px; background: #38bdf8; border: none; color: #000; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 5px; }
+        /* Modal design */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.85); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(12px); animation: fadeIn 0.3s ease; }
+        .modal-content { background: #1e293b; padding: 30px; border-radius: 20px; width: 400px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
+        .modal-content h2 { margin-bottom: 15px; font-size: 22px; color: #38bdf8; font-weight: 700; }
+        .modal-content p { font-size: 14px; margin-bottom: 15px; color: #94a3b8; line-height: 1.6; }
+        .modal-content input { width: 100%; padding: 12px 16px; margin-bottom: 15px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 8px; outline: none; font-size: 14px; }
+        .modal-content input:focus { border-color: #38bdf8; }
+        .modal-content button { width: 100%; padding: 12px; background: #38bdf8; border: none; color: #020617; font-weight: 700; border-radius: 8px; cursor: pointer; margin-top: 5px; transition: 0.3s; }
+        .modal-content button:hover { opacity: 0.9; }
         .close-btn { background: #ef4444 !important; color: white !important; }
-        .card-info { background: #0f172a; padding: 10px; border-radius: 6px; border: 1px dashed #38bdf8; color: #38bdf8; font-family: monospace; font-size: 15px; margin-bottom: 15px; text-align: center; }
+        .card-info { background: #0f172a; padding: 15px; border-radius: 10px; border: 1px dashed #38bdf8; color: #38bdf8; font-family: monospace; font-size: 16px; margin-bottom: 20px; text-align: center; line-height: 1.6; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>⚡ CS2 VIP Shop</h1>
-        <div class="user-panel">
-            <span>Balans: <span class="balance" id="userBalance">$0.00</span></span>
+        <div class="user-panel" id="userPanel">
+            <!-- Google orqali kirish tugmasi (boshlanishiga chiqib turadi) -->
+            <button class="google-btn" onclick="loginWithGoogle()">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"> Google bilan kirish
+            </button>
             <button class="deposit-btn" onclick="openDeposit()">Hisobni to'ldirish</button>
             <button class="admin-btn" onclick="checkAdmin()">Admin Panel</button>
         </div>
@@ -87,7 +100,7 @@
     <!-- Skinlar ro'yxati -->
     <div class="container" id="product-list"></div>
 
-    <!-- Depozit (Pul tashlash) Modal oynasi -->
+    <!-- Depozit Modal -->
     <div class="modal" id="depositModal">
         <div class="modal-content">
             <h2>Balansni To'ldirish</h2>
@@ -104,9 +117,9 @@
     <div class="modal" id="adminModal">
         <div class="modal-content">
             <h2>Admin Panel</h2>
-            <hr style="border:0; border-top:1px solid #334155; margin-bottom:15px;">
+            <hr style="border:0; border-top:1px solid #334155; margin: 15px 0;">
             
-            <h3 style="font-size: 15px; color: #22c55e; margin-bottom: 8px;">Balans qo'shish</h3>
+            <h3 style="font-size: 15px; color: #4ade80; margin-bottom: 8px;">Foydalanuvchiga balans qo'shish</h3>
             <input type="number" id="addBalanceAmount" placeholder="Qo'shiladigan summa ($ da)">
             <button onclick="adminAddBalance()" style="background: #22c55e; color: white; margin-bottom: 20px;">Balansga qo'shish</button>
 
@@ -123,6 +136,7 @@
     <script>
         let balance = 0.00;
         let tradeLink = "";
+        let userName = "";
 
         let products = [
             { name: "AK-47 | Redline", price: 25.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08-jq5WYh8j8J4Tdl3lW7Yt0jL2W89qh3lG2r0FsMGCgd4_DdwVsN1zRqFO_w-3r1MW9tc7Lz3JnvSA8ZCsjCq-P3-A/360fx360f" }
@@ -143,8 +157,26 @@
             });
         }
 
-        function updateBalanceUI() {
-            document.getElementById('userBalance').innerText = "$" + balance.toFixed(2);
+        function updatePanelUI() {
+            const panel = document.getElementById('userPanel');
+            if (userName) {
+                panel.innerHTML = `
+                    <span style="color: #38bdf8; font-weight: 600;">👤 ${userName}</span>
+                    <span>Balans: <span class="balance">$${balance.toFixed(2)}</span></span>
+                    <button class="deposit-btn" onclick="openDeposit()">To'ldirish</button>
+                    <button class="admin-btn" onclick="checkAdmin()">Admin</button>
+                `;
+            }
+        }
+
+        // Google orqali kirishni simulyatsiya qilish (Ism kiritish yoki Google accountni tanlash)
+        function loginWithGoogle() {
+            let name = prompt("GoogleProfilingiz nomini kiriting (yoki ismingizni yozing):");
+            if (name && name.trim() !== "") {
+                userName = name.trim();
+                updatePanelUI();
+                alert(`Xush kelibsiz, ${userName}! Google orqali muvaffaqiyatli kirdingiz.`);
+            }
         }
 
         function saveTradeLink() {
@@ -158,6 +190,10 @@
         }
 
         function buySkin(name, price) {
+            if(!userName) {
+                alert("Diqqat! Sotib olish uchun oldin 'Google bilan kirish' tugmasini bosing.");
+                return;
+            }
             if(!tradeLink) {
                 alert("Diqqat! Skinni olish uchun oldin Steam Trade Link havolangizni kiriting va saqlang.");
                 return;
@@ -165,18 +201,17 @@
 
             if(balance >= price) {
                 balance -= price;
-                updateBalanceUI();
-                alert(`Tabriklayman! ${name} muvaffaqiyatli sotib olindi.\nTez orada Trade taklif yuboriladi!`);
+                updatePanelUI();
+                alert(`Tabriklayman ${userName}! ${name} muvaffaqiyatli sotib olindi.\nTez orada Trade taklif yuboriladi!`);
             } else {
-                alert("Xatolik: Balansingizda mablag' yetarli emas!");
+                alert("Xatolik: Balansingizda mablag' yetarli emas! Iltimos hisobni to'ldiring.");
             }
         }
 
-        // Depozit oynasini ochish/yopish
         function openDeposit() { document.getElementById('depositModal').style.display = 'flex'; }
         function closeDeposit() { document.getElementById('depositModal').style.display = 'none'; }
 
-        // Qiyinroq va maxfiy admin parol
+        // Maxfiy admin parol
         function checkAdmin() {
             let password = prompt("Admin maxfiy parolini kiriting:");
             if (password === "CS2_Vip_Secure_2026!") {
@@ -188,12 +223,11 @@
 
         function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
 
-        // Admin balans qo'shishi uchun funksiya
         function adminAddBalance() {
             let amount = parseFloat(document.getElementById('addBalanceAmount').value);
             if(!isNaN(amount) && amount > 0) {
                 balance += amount;
-                updateBalanceUI();
+                updatePanelUI();
                 alert(`Muvaffaqiyatli! Balansga $${amount.toFixed(2)} qo'shildi.`);
                 document.getElementById('addBalanceAmount').value = '';
             } else {
@@ -219,7 +253,6 @@
         }
 
         renderProducts();
-        updateBalanceUI();
     </script>
 </body>
 </html>
