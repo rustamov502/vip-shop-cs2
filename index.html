@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS2 VIP P2P Market | Garant</title>
+    <!-- Google Sign-In SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
         body { 
@@ -12,7 +14,6 @@
             padding: 20px; 
             min-height: 100vh;
         }
-        /* Top Utility Bar (Telegram & Support) */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -42,10 +43,6 @@
         .user-panel { display: flex; align-items: center; gap: 12px; background: rgba(30, 41, 59, 0.7); padding: 10px 18px; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3); backdrop-filter: blur(10px); flex-wrap: wrap; }
         .balance { color: #4ade80; font-weight: bold; font-size: 17px; }
         
-        .google-btn { background: #ffffff; color: #1e293b; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: 0.3s; }
-        .google-btn:hover { background: #f1f5f9; }
-        .google-btn img { width: 15px; height: 15px; }
-
         .deposit-btn { background: #38bdf8; color: #020617; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; }
         .deposit-btn:hover { background: #0ea5e9; }
 
@@ -77,7 +74,6 @@
         .card h3 { font-size: 16px; margin-bottom: 4px; color: #f1f5f9; font-weight: 600; }
         .seller-info { font-size: 12px; color: #38bdf8; margin-bottom: 6px; }
         
-        /* Qizil ogohlantirish yozuvi */
         .garant-warning { 
             background: rgba(239, 68, 68, 0.15); 
             border: 1px solid rgba(239, 68, 68, 0.4); 
@@ -107,7 +103,6 @@
 </head>
 <body>
 
-    <!-- Tepada Telegram Kanal va Support -->
     <div class="top-bar">
         <a href="https://t.me/SizningKanalingiz" target="_blank">📢 Telegram Kanal</a>
         <a href="https://t.me/krptochi" target="_blank">💬 Admin Support (@krptochi)</a>
@@ -116,9 +111,13 @@
     <header>
         <h1>⚡ CS2 VIP P2P Market</h1>
         <div class="user-panel" id="userPanel">
-            <button class="google-btn" onclick="loginWithGoogle()">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"> Kirish
-            </button>
+            <!-- Google Sign In Button Container -->
+            <div id="g_id_onload"
+                 data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_black"></div>
+
             <span>Balans: <span class="balance" id="userBalance">0 so'm</span></span>
             <button class="deposit-btn" onclick="openDeposit()">Hisobni to'ldirish</button>
             <button class="sell-skin-btn" onclick="openSellModal()">Skin sotish</button>
@@ -131,10 +130,7 @@
         <button onclick="saveTradeLink()">Saqlash</button>
     </div>
 
-    <!-- P2P Skinlar Ro'yxati -->
-    <div class="container" id="product-list">
-        <!-- Bo'sh holda boshlanadi -->
-    </div>
+    <div class="container" id="product-list"></div>
 
     <!-- Depozit Modal -->
     <div class="modal" id="depositModal">
@@ -186,14 +182,32 @@
     </div>
 
     <script>
-        let balance = 0; // So'mda
+        let balance = 0;
         let tradeLink = "";
         let userName = "";
+        let userEmail = "";
         let pendingRequests = []; 
-        let products = []; // To'liq bo'sh holatdan boshlanadi
+        let products = []; 
         
-        // 🔐 ADMIN PANEL MAXFIY KODI:
         const ADMIN_SECRET_CODE = "krptochi_admin_2026";
+
+        // Google orqali kirganda ishlaydigan funksiya (JWT tokenni ochib ism va emailni olish)
+        function handleCredentialResponse(response) {
+            const responsePayload = parseJwt(response.credential);
+            userName = responsePayload.name;
+            userEmail = responsePayload.email;
+            updatePanelUI();
+            alert(`Xush kelibsiz, ${userName} (${userEmail})! Google akkountingiz muvaffaqiyatli ulandi.`);
+        }
+
+        function parseJwt(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
 
         function renderProducts() {
             const list = document.getElementById('product-list');
@@ -219,8 +233,9 @@
 
         function updatePanelUI() {
             const panel = document.getElementById('userPanel');
-            let userDisplay = userName ? `<span style="color: #38bdf8; font-weight: 600;">👤 ${userName}</span>` : `<button class="google-btn" onclick="loginWithGoogle()"><img src="https://www.svgrepo.com/show/475656/google-color.svg"> Kirish</button>`;
+            let userDisplay = userName ? `<span style="color: #38bdf8; font-weight: 600;" title="${userEmail}">👤 ${userName}</span>` : `<span style="color: #ef4444; font-size: 12px;">Google orqali kiring ➡️</span>`;
             
+            // Google tugmasini agar kirilgan bo'lsa yashirish, bo'lmasa ko'rsatish mumkin
             panel.innerHTML = `
                 ${userDisplay}
                 <span>Balans: <span class="balance" id="userBalance">${balance.toLocaleString()} so'm</span></span>
@@ -230,31 +245,32 @@
             `;
         }
 
-        function loginWithGoogle() {
-            let name = prompt("Ismingizni kiriting:");
-            if (name && name.trim() !== "") {
-                userName = name.trim();
-                updatePanelUI();
-                alert(`Xush kelibsiz, ${userName}!`);
-            }
-        }
-
         function saveTradeLink() {
             const link = document.getElementById('tradeLinkInput').value;
             if(link.trim() !== "") {
                 tradeLink = link;
-                alert("Trade Link saqlandi!");
+                alert("Steam Trade Link muvaffaqiyatli saqlandi!");
             } else {
                 alert("Iltimos, to'g'ri Trade Link kiriting!");
             }
         }
 
-        function openDeposit() { document.getElementById('depositModal').style.display = 'flex'; }
+        function openDeposit() { 
+            if(!userName) {
+                alert("Balansni to'ldirish uchun avval Google akkountingiz bilan kiring!");
+                return;
+            }
+            document.getElementById('depositModal').style.display = 'flex'; 
+        }
         function closeDeposit() { document.getElementById('depositModal').style.display = 'none'; }
 
         function openSellModal() {
             if(!userName) {
-                alert("Oldin tizimga kiring!");
+                alert("Skin sotish uchun avval Google akkountingiz bilan kiring!");
+                return;
+            }
+            if(!tradeLink) {
+                alert("Diqqat! Steam Trade Link ulanmagan. Iltimos, oldin sahifa yuqorisidagi katakchaga Trade Link manzilingizni yozib saqlang!");
                 return;
             }
             document.getElementById('sellModal').style.display = 'flex';
@@ -297,7 +313,7 @@
         function sendDepositRequest() {
             let amount = parseFloat(document.getElementById('depositAmount').value);
             if(!userName) {
-                alert("Oldin saytga kiring (Ismingizni kiriting)!");
+                alert("Xatolik! Google akkountga ulanmagansiz.");
                 return;
             }
             if(isNaN(amount) || amount <= 0) {
