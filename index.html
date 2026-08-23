@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 VIP P2P Market | Garant</title>
+    <title>CS2 VIP P2P Market | LIS-SKINS Style</title>
     <!-- Google Identity Services Kutubxonasi -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
         body { 
-            background: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 50%, #020617 100%); 
+            background: #0b0f19; 
             color: #f8fafc; 
             padding: 20px; 
             min-height: 100vh;
@@ -18,7 +18,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.6);
+            background: #131b2e;
             padding: 8px 20px;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -32,75 +32,107 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-bottom: 25px; 
-            border-bottom: 1px solid rgba(56, 189, 248, 0.2); 
+            margin-bottom: 20px; 
+            border-bottom: 1px solid #1e293b; 
             padding-bottom: 15px; 
             flex-wrap: wrap; 
             gap: 15px; 
         }
-        h1 { color: #38bdf8; font-size: 26px; font-weight: 800; text-shadow: 0 0 20px rgba(56,189,248,0.4); }
+        h1 { color: #38bdf8; font-size: 24px; font-weight: 800; }
         
-        .user-panel { display: flex; align-items: center; gap: 12px; background: rgba(30, 41, 59, 0.7); padding: 10px 18px; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3); backdrop-filter: blur(10px); flex-wrap: wrap; }
-        .balance { color: #4ade80; font-weight: bold; font-size: 17px; }
+        .user-panel { display: flex; align-items: center; gap: 12px; background: #131b2e; padding: 8px 16px; border-radius: 10px; border: 1px solid #1e293b; flex-wrap: wrap; }
+        .balance { color: #4ade80; font-weight: bold; font-size: 16px; }
         
-        .deposit-btn { background: #38bdf8; color: #020617; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; }
+        .deposit-btn { background: #38bdf8; color: #020617; border: none; padding: 7px 12px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; }
         .deposit-btn:hover { background: #0ea5e9; }
 
-        .sell-skin-btn { background: linear-gradient(135deg, #a855f7, #9333ea); color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; }
-        .sell-skin-btn:hover { opacity: 0.9; }
+        .sell-skin-btn { background: #9333ea; color: white; border: none; padding: 7px 12px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; }
+        .sell-skin-btn:hover { background: #7e22ce; }
         
-        .admin-btn { background: linear-gradient(135deg, #eab308, #ca8a04); color: #000; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; }
-        .admin-btn:hover { opacity: 0.9; }
+        .admin-btn { background: #eab308; color: #000; border: none; padding: 7px 12px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; }
+        .admin-btn:hover { background: #ca8a04; }
 
-        .trade-section { background: rgba(30, 41, 59, 0.5); padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(56, 189, 248, 0.2); display: flex; gap: 10px; align-items: center; backdrop-filter: blur(10px); }
-        .trade-section input { flex: 1; padding: 12px; background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; color: white; border-radius: 8px; outline: none; font-size: 14px; }
+        /* LIS-SKINS uslubidagi Qidiruv va Filtr paneli */
+        .search-filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .search-filter-bar input, .search-filter-bar select {
+            background: #131b2e;
+            border: 1px solid #1e293b;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+        .search-filter-bar input { flex: 2; min-width: 240px; }
+        .search-filter-bar input:focus, .search-filter-bar select:focus { border-color: #38bdf8; }
+        .search-filter-bar select { flex: 1; min-width: 160px; cursor: pointer; }
+
+        .trade-section { background: #131b2e; padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid #1e293b; display: flex; gap: 10px; align-items: center; }
+        .trade-section input { flex: 1; padding: 10px 14px; background: #0b0f19; border: 1px solid #1e293b; color: white; border-radius: 6px; outline: none; font-size: 14px; }
         .trade-section input:focus { border-color: #38bdf8; }
-        .trade-section button { background: #38bdf8; color: #020617; border: none; padding: 12px 20px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .trade-section button { background: #38bdf8; color: #020617; border: none; padding: 10px 18px; font-weight: 700; border-radius: 6px; cursor: pointer; transition: 0.3s; }
         .trade-section button:hover { background: #0ea5e9; }
 
-        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; margin-bottom: 40px; }
         .card { 
-            background: rgba(30, 41, 59, 0.4); 
-            border-radius: 14px; 
-            padding: 15px; 
+            background: #131b2e; 
+            border-radius: 10px; 
+            padding: 12px; 
             text-align: center; 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: 0.3s; 
-            backdrop-filter: blur(10px);
+            border: 1px solid #1e293b; 
+            transition: 0.2s; 
         }
-        .card:hover { transform: translateY(-6px); border-color: rgba(56, 189, 248, 0.5); }
-        .card img { width: 100%; height: 150px; object-fit: contain; margin-bottom: 12px; filter: drop-shadow(0 5px 8px rgba(0,0,0,0.6)); }
-        .card h3 { font-size: 16px; margin-bottom: 4px; color: #f1f5f9; font-weight: 600; }
-        .seller-info { font-size: 12px; color: #38bdf8; margin-bottom: 6px; }
+        .card:hover { transform: translateY(-4px); border-color: #38bdf8; }
+        .card img { width: 100%; height: 130px; object-fit: contain; margin-bottom: 10px; }
+        .card h3 { font-size: 15px; margin-bottom: 4px; color: #f1f5f9; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .seller-info { font-size: 11px; color: #94a3b8; margin-bottom: 6px; }
         
         .garant-warning { 
-            background: rgba(239, 68, 68, 0.15); 
-            border: 1px solid rgba(239, 68, 68, 0.4); 
+            background: rgba(239, 68, 68, 0.1); 
+            border: 1px solid rgba(239, 68, 68, 0.3); 
             color: #f87171; 
-            font-size: 11px; 
-            padding: 6px; 
-            border-radius: 6px; 
-            margin-bottom: 10px; 
-            line-height: 1.3;
+            font-size: 10px; 
+            padding: 4px; 
+            border-radius: 4px; 
+            margin-bottom: 8px; 
             font-weight: 600;
         }
 
-        .card p { color: #4ade80; font-weight: 800; font-size: 18px; margin-bottom: 12px; }
-        .buy-btn { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.3s; text-decoration: none; display: inline-block; }
-        .buy-btn:hover { opacity: 0.95; }
+        .card p { color: #4ade80; font-weight: 800; font-size: 16px; margin-bottom: 10px; }
+        .buy-btn { background: #22c55e; color: white; border: none; padding: 8px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 13px; transition: 0.2s; text-decoration: none; display: inline-block; }
+        .buy-btn:hover { background: #16a34a; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.85); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
-        .modal-content { background: #1e293b; padding: 25px; border-radius: 16px; width: 420px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.7); max-height: 90vh; overflow-y: auto; text-align: center; }
-        .modal-content h2 { margin-bottom: 12px; font-size: 20px; color: #38bdf8; font-weight: 700; }
-        .modal-content p { font-size: 13px; margin-bottom: 16px; color: #94a3b8; line-height: 1.5; }
-        .modal-content input, .modal-content select { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 8px; outline: none; font-size: 14px; text-align: left; }
-        .modal-content label { display: block; text-align: left; font-size: 12px; color: #38bdf8; margin-bottom: 4px; font-weight: 600; }
-        .modal-content button { width: 100%; padding: 10px; background: #38bdf8; border: none; color: #020617; font-weight: 700; border-radius: 8px; cursor: pointer; margin-top: 5px; }
-        .close-btn { background: #ef4444 !important; color: white !important; margin-top: 8px; }
-        .card-info { background: #0f172a; padding: 12px; border-radius: 8px; border: 1px dashed #38bdf8; color: #38bdf8; font-family: monospace; font-size: 15px; margin-bottom: 15px; text-align: center; }
-        .admin-request-item { background: #0f172a; padding: 12px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #334155; font-size: 13px; text-align: left; }
-        .admin-request-item img { width: 100%; max-height: 120px; object-fit: contain; margin-top: 8px; border-radius: 6px; border: 1px solid #334155; background: #000; }
+        /* Pastki Foydalanuvchi Profili Qismi (Siz so'ragan LIS-SKINS uslubida) */
+        .user-profile-footer {
+            background: #131b2e;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            align-items: center;
+        }
+        .profile-info-box h3 { color: #38bdf8; font-size: 16px; margin-bottom: 8px; }
+        .profile-info-box p { font-size: 13px; color: #94a3b8; margin-bottom: 4px; word-break: break-all; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.85); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
+        .modal-content { background: #131b2e; padding: 25px; border-radius: 14px; width: 400px; border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.7); max-height: 90vh; overflow-y: auto; text-align: center; }
+        .modal-content h2 { margin-bottom: 12px; font-size: 18px; color: #38bdf8; }
+        .modal-content p { font-size: 13px; margin-bottom: 15px; color: #94a3b8; line-height: 1.4; }
+        .modal-content input, .modal-content select { width: 100%; padding: 10px; margin-bottom: 10px; background: #0b0f19; border: 1px solid #1e293b; color: white; border-radius: 6px; outline: none; font-size: 13px; }
+        .modal-content label { display: block; text-align: left; font-size: 11px; color: #38bdf8; margin-bottom: 3px; font-weight: 600; }
+        .modal-content button { width: 100%; padding: 10px; background: #38bdf8; border: none; color: #020617; font-weight: 700; border-radius: 6px; cursor: pointer; margin-top: 5px; }
+        .close-btn { background: #ef4444 !important; color: white !important; }
+        .card-info { background: #0b0f19; padding: 10px; border-radius: 6px; border: 1px dashed #38bdf8; color: #38bdf8; font-family: monospace; font-size: 14px; margin-bottom: 12px; }
+        .admin-request-item { background: #0b0f19; padding: 10px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #1e293b; font-size: 12px; text-align: left; }
+        .admin-request-item img { width: 100%; max-height: 100px; object-fit: contain; margin-top: 6px; border-radius: 4px; background: #000; }
     </style>
 </head>
 <body>
@@ -113,12 +145,30 @@
     <header>
         <h1>⚡ CS2 VIP P2P Market</h1>
         <div class="user-panel" id="userPanel">
+            <span style="color: #ef4444; font-size: 12px;">Kirmagan</span>
             <span>Balans: <span class="balance" id="userBalance">0 so'm</span></span>
             <button class="deposit-btn" onclick="openDeposit()">Hisobni to'ldirish</button>
             <button class="sell-skin-btn" onclick="openSellModal()">Skin sotish</button>
             <button class="admin-btn" onclick="checkAdmin()">Admin</button>
         </div>
     </header>
+
+    <!-- LIS-SKINS uslubidagi Qidiruv va Filtr Paneli -->
+    <div class="search-filter-bar">
+        <input type="text" id="searchInput" placeholder="Skin nomini yozib qidiring (masalan: AWP, Knife)..." oninput="filterProducts()">
+        <select id="categoryFilter" onchange="filterProducts()">
+            <option value="all">Barcha qurollar</option>
+            <option value="knife">Pichoqlar (Knives)</option>
+            <option value="gloves">Qo'lqoplar (Gloves)</option>
+            <option value="rifle">Avtomatlar (Rifles)</option>
+            <option value="pistol">Pistoletlar (Pistols)</option>
+        </select>
+        <select id="sortFilter" onchange="filterProducts()">
+            <option value="default">Saralash: Odatiy</option>
+            <option value="low">Narxi: Arzonidan</option>
+            <option value="high">Narxi: Qimmatidan</option>
+        </select>
+    </div>
 
     <div class="trade-section">
         <input type="text" id="tradeLinkInput" placeholder="Steam Trade URL havolangizni kiriting...">
@@ -127,33 +177,47 @@
 
     <div class="container" id="product-list"></div>
 
+    <!-- Pastki qismdagi Foydalanuvchi Shaxsiy Kabineti (Profil) -->
+    <div class="user-profile-footer" id="userProfileFooter">
+        <div class="profile-info-box">
+            <h3>👤 Profil Ma'lumotlari</h3>
+            <p><b>Ism:</b> <span id="footerUserName">Tizimga kirmagansiz</span></p>
+            <p><b>Email:</b> <span id="footerUserEmail">-</span></p>
+        </div>
+        <div class="profile-info-box">
+            <h3>🔗 Steam Trade Link</h3>
+            <p id="footerTradeLink" style="color: #f59e0b;">Ulanmagan</p>
+        </div>
+        <div class="profile-info-box">
+            <h3>💰 Hisob Holati</h3>
+            <p>Balans: <b style="color: #4ade80;" id="footerBalance">0 so'm</b></p>
+            <button onclick="openDeposit()" style="margin-top: 8px; background: #38bdf8; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; color: #020617; font-size: 12px;">Hisobni To'ldirish</button>
+        </div>
+    </div>
+
     <!-- Google Login Modal -->
     <div class="modal" id="googleLoginModal" style="display: flex;">
         <div class="modal-content">
             <h2>Xush Kelibsiz!</h2>
             <p>Saytdan foydalanish uchun rasmiy Google akkountingiz orqali tizimga kiring:</p>
-            <div id="googleBtnContainer" style="display: flex; justify-content: center; margin: 20px 0;"></div>
-            <p style="font-size: 11px; color: #64748b;">Google xavfsizlik protokoli orqali ma'lumotlaringiz to'liq himoyalanadi.</p>
+            <div id="googleBtnContainer" style="display: flex; justify-content: center; margin: 15px 0;"></div>
+            <p style="font-size: 11px; color: #64748b;">Google xavfsizlik protokoli orqali ma'lumotlaringiz himoyalanadi.</p>
         </div>
     </div>
 
-    <!-- Depozit Modal (Chek yuklash imkoniyati bilan) -->
+    <!-- Depozit Modal -->
     <div class="modal" id="depositModal">
         <div class="modal-content">
             <h2>Balansni To'ldirish</h2>
-            <p>Quyidagi kartaga pul o'tkazing va chek rasmini yuklab adminga yuboring:</p>
-            
+            <p>Quyidagi kartaga pul o'tkazing va chek rasmini yuklab yuboring:</p>
             <div class="card-info">
                 6262 5700 7572 5798<br>
                 <strong>Ishkuvatova Risolat</strong>
             </div>
-
             <label>O'tkazilgan summa (so'mda):</label>
             <input type="number" id="depositAmount" placeholder="Masalan: 20000">
-
             <label>To'lov cheki rasmini yuklang:</label>
-            <input type="file" id="depositReceipt" accept="image/*" style="padding: 7px; background: #0f172a;">
-
+            <input type="file" id="depositReceipt" accept="image/*" style="padding: 5px; background: #0b0f19;">
             <button onclick="sendDepositRequest()" style="background: #22c55e; color: white;">Chekni yuborish</button>
             <button class="close-btn" onclick="closeDeposit()">Yopish</button>
         </div>
@@ -164,31 +228,33 @@
         <div class="modal-content">
             <h2>Skinni Sotuvga Qo'yish</h2>
             <p>E'lon berish haqi: <b style="color: #facc15;">4,000 so'm</b> balansingizdan yechib olinadi.</p>
-            <input type="text" id="mySkinName" placeholder="Skin nomi (masalan: AWP | Asiimov)">
+            <input type="text" id="mySkinName" placeholder="Skin nomi (masalan: ★ Bowie Knife | Freehand)">
+            <select id="mySkinCategory">
+                <option value="knife">Pichoq (Knife)</option>
+                <option value="gloves">Qo'lqop (Gloves)</option>
+                <option value="rifle">Avtomat (Rifle)</option>
+                <option value="pistol">Pistolet (Pistol)</option>
+            </select>
             <input type="number" id="mySkinPrice" placeholder="Narxi ($ da, masalan: 15)">
             <input type="text" id="mySkinImg" placeholder="Skin rasmi URL manzili">
             <input type="text" id="myTgUsername" placeholder="Sizning Telegram username (@ bilan)">
-            <button onclick="publishSkin()" style="background: #a855f7; color: white;">E'lonni joylash (4,000 so'm)</button>
+            <button onclick="publishSkin()" style="background: #9333ea; color: white;">E'lonni joylash (4,000 so'm)</button>
             <button class="close-btn" onclick="closeSellModal()">Yopish</button>
         </div>
     </div>
 
-    <!-- Admin Panel Modal (Cheklar bilan) -->
+    <!-- Admin Panel Modal -->
     <div class="modal" id="adminModal">
-        <div class="modal-content" style="width: 480px;">
+        <div class="modal-content" style="width: 450px;">
             <h2>Admin Panel</h2>
-            <hr style="border:0; border-top:1px solid #334155; margin: 12px 0;">
-            
-            <h3 style="font-size: 14px; color: #facc15; margin-bottom: 6px;">📥 Depozit va Chek So'rovlari:</h3>
-            <div id="adminRequestsList" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px;">
+            <hr style="border:0; border-top:1px solid #1e293b; margin: 10px 0;">
+            <h3 style="font-size: 13px; color: #facc15; margin-bottom: 6px; text-align: left;">📥 Chek So'rovlari:</h3>
+            <div id="adminRequestsList" style="max-height: 220px; overflow-y: auto; margin-bottom: 12px;">
                 <p style="color: #64748b; font-size: 12px;">Hozircha so'rovlar yo'q.</p>
             </div>
-
-            <h3 style="font-size: 14px; color: #4ade80; margin-bottom: 6px;">Foydalanuvchiga qo'lda balans berish</h3>
-            <input type="text" id="targetUser" placeholder="Foydalanuvchi ismi">
+            <h3 style="font-size: 13px; color: #4ade80; margin-bottom: 6px; text-align: left;">Foydalanuvchiga balans berish</h3>
             <input type="number" id="addBalanceAmount" placeholder="Summa (so'mda)">
             <button onclick="adminAddBalance()" style="background: #22c55e; color: white;">Balansni tasdiqlash</button>
-            
             <button class="close-btn" onclick="closeAdmin()">Yopish</button>
         </div>
     </div>
@@ -199,14 +265,17 @@
         let userName = "";
         let userEmail = "";
         let pendingRequests = []; 
-        let products = []; 
+        let products = [
+            { name: "★ Bowie Knife | Freehand", category: "knife", price: 85.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf2PLacDBA5ciJn7-Glsj6N6juhGRd8fp3h-XI_Aq70ATj_RE9Mjr1Jdecd1M6Z1qGqQO6w7y7h5K7uMnJwHNkpSB2tXvD30vgT85U1_M/300fx300f", tg: "@krptochi", seller: "System" },
+            { name: "AWP | Asiimov", category: "rifle", price: 42.50, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O5hpG0kfv9J4Tdl3lW7Yt1j9bN_Iv9nBuw5BU_ZGqmcNSSdwU6N16G-1e6lO3ug8e1vpucznJqvCQk5HaMmEC21xxMZuBrw_KACA/300fx300f", tg: "@krptochi", seller: "System" }
+        ]; 
         
         const ADMIN_SECRET_CODE = "krptochi_admin_2026";
         const GOOGLE_CLIENT_ID = "528559571287-j02f50fh43hbr597tjat787gd5e7i8lp.apps.googleusercontent.com"; 
 
         window.onload = function() {
             initGoogleAuth();
-            renderProducts();
+            renderProducts(products);
             updatePanelUI();
         };
 
@@ -215,10 +284,9 @@
                 client_id: GOOGLE_CLIENT_ID,
                 callback: handleCredentialResponse
             });
-
             google.accounts.id.renderButton(
                 document.getElementById("googleBtnContainer"),
-                { theme: "outline", size: "large", width: 280, text: "signin_with" }
+                { theme: "outline", size: "large", width: 260, text: "signin_with" }
             );
         }
 
@@ -241,26 +309,46 @@
             }
         }
 
-        function renderProducts() {
+        function renderProducts(listToRender) {
             const list = document.getElementById('product-list');
-            if (products.length === 0) {
-                list.innerHTML = `<p style="color: #64748b; grid-column: 1/-1; text-align: center; padding: 40px;">Hozircha skinlar mavjud emas.</p>`;
+            if (listToRender.length === 0) {
+                list.innerHTML = `<p style="color: #64748b; grid-column: 1/-1; text-align: center; padding: 40px;">Skinlar topilmadi.</p>`;
                 return;
             }
             list.innerHTML = "";
-            products.forEach((p) => {
+            listToRender.forEach((p) => {
                 let cleanTg = p.tg.replace('@', '');
                 list.innerHTML += `
                     <div class="card">
                         <img src="${p.img}" alt="${p.name}">
                         <h3>${p.name}</h3>
                         <div class="seller-info">Sotuvchi: <b>${p.seller}</b></div>
-                        <div class="garant-warning">⚠️ Bevosita savdo qilmang! Ortaga admin tushadi (@krptochi).</div>
+                        <div class="garant-warning">⚠️ Admin garantiyasida (@krptochi)</div>
                         <p>$${p.price.toFixed(2)}</p>
-                        <a href="https://t.me/${cleanTg}" target="_blank" class="buy-btn">Sotib olish uchun yozish</a>
+                        <a href="https://t.me/${cleanTg}" target="_blank" class="buy-btn">Sotib olish</a>
                     </div>
                 `;
             });
+        }
+
+        function filterProducts() {
+            let search = document.getElementById('searchInput').value.toLowerCase();
+            let category = document.getElementById('categoryFilter').value;
+            let sort = document.getElementById('sortFilter').value;
+
+            let filtered = products.filter(p => {
+                let matchesSearch = p.name.toLowerCase().includes(search);
+                let matchesCategory = (category === 'all' || p.category === category);
+                return matchesSearch && matchesCategory;
+            });
+
+            if (sort === 'low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sort === 'high') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            renderProducts(filtered);
         }
 
         function updatePanelUI() {
@@ -276,12 +364,19 @@
                 <button class="sell-skin-btn" onclick="openSellModal()">Skin sotish</button>
                 <button class="admin-btn" onclick="checkAdmin()">Admin</button>
             `;
+
+            // Pastki profil qismini yangilash
+            document.getElementById('footerUserName').innerText = userName || "Tizimga kirmagansiz";
+            document.getElementById('footerUserEmail').innerText = userEmail || "-";
+            document.getElementById('footerTradeLink').innerText = tradeLink || "Ulanmagan";
+            document.getElementById('footerBalance').innerText = balance.toLocaleString() + " so'm";
         }
 
         function saveTradeLink() {
             const link = document.getElementById('tradeLinkInput').value;
             if(link.trim() !== "") {
                 tradeLink = link;
+                updatePanelUI();
                 alert("Steam Trade Link saqlandi!");
             } else {
                 alert("Iltimos, Trade Link kiriting!");
@@ -303,6 +398,7 @@
 
         function publishSkin() {
             let name = document.getElementById('mySkinName').value;
+            let category = document.getElementById('mySkinCategory').value;
             let price = parseFloat(document.getElementById('mySkinPrice').value);
             let img = document.getElementById('mySkinImg').value;
             let tg = document.getElementById('myTgUsername').value;
@@ -319,38 +415,23 @@
 
             balance -= adFee;
             updatePanelUI();
-            products.unshift({ name, price, img, tg, seller: userName });
-            renderProducts();
+            products.unshift({ name, category, price, img, tg, seller: userName });
+            filterProducts();
             closeSellModal();
             alert("Skin sotuvga qo'yildi!");
         }
 
-        // Chek rasmini o'qib adminga yuborish funksiyasi
         function sendDepositRequest() {
             let amount = parseFloat(document.getElementById('depositAmount').value);
             let fileInput = document.getElementById('depositReceipt');
 
-            if(isNaN(amount) || amount <= 0) {
-                alert("To'g'ri summa kiriting!");
-                return;
-            }
-            if(fileInput.files.length === 0) {
-                alert("Iltimos, to'lov cheki rasmini yuklang!");
-                return;
-            }
+            if(isNaN(amount) || amount <= 0) { alert("To'g'ri summa kiriting!"); return; }
+            if(fileInput.files.length === 0) { alert("To'lov chekini yuklang!"); return; }
 
             let reader = new FileReader();
             reader.onload = function(e) {
-                let receiptImageUrl = e.target.result; // Rasm base64 formatga o'tkaziladi
-                
-                pendingRequests.push({ 
-                    user: userName, 
-                    email: userEmail, 
-                    amount: amount, 
-                    receipt: receiptImageUrl 
-                });
-
-                alert("Chek muvaffaqiyatli adminga yuborildi!");
+                pendingRequests.push({ user: userName, email: userEmail, amount: amount, receipt: e.target.result });
+                alert("Chek adminga yuborildi!");
                 document.getElementById('depositAmount').value = '';
                 fileInput.value = '';
                 closeDeposit();
@@ -380,13 +461,10 @@
             pendingRequests.forEach((req, idx) => {
                 container.innerHTML += `
                     <div class="admin-request-item">
-                        <div><b>Foydalanuvchi:</b> ${req.user} (${req.email})</div>
-                        <div><b>Summa:</b> <span style="color:#4ade80; font-weight:bold;">${req.amount.toLocaleString()} so'm</span></div>
-                        <div style="margin-top: 6px; font-size:11px; color:#94a3b8;">Chek rasmi:</div>
-                        <a href="${req.receipt}" target="_blank" title="Rasmni kattalashtirib ko'rish">
-                            <img src="${req.receipt}" alt="Chek rasmi">
-                        </a>
-                        <button onclick="approveRequest(${idx})" style="background:#22c55e; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; width:100%; margin-top:8px; font-weight:bold;">Tasdiqlash va balansga qo'shish</button>
+                        <div><b>Foydalanuvchi:</b> ${req.user}</div>
+                        <div><b>Summa:</b> <span style="color:#4ade80;">${req.amount.toLocaleString()} so'm</span></div>
+                        <a href="${req.receipt}" target="_blank"><img src="${req.receipt}"></a>
+                        <button onclick="approveRequest(${idx})" style="background:#22c55e; color:white; border:none; padding:5px; border-radius:4px; width:100%; margin-top:6px; cursor:pointer; font-weight:bold;">Tasdiqlash</button>
                     </div>
                 `;
             });
@@ -396,7 +474,7 @@
             let req = pendingRequests[idx];
             balance += req.amount;
             updatePanelUI();
-            alert(`${req.user} ning ${req.amount.toLocaleString()} so'm depoziti tasdiqlandi va balansiga qo'shildi!`);
+            alert(`Depozit tasdiqlandi!`);
             pendingRequests.splice(idx, 1);
             renderAdminRequests();
         }
@@ -406,7 +484,7 @@
             if(!isNaN(amount) && amount > 0) {
                 balance += amount;
                 updatePanelUI();
-                alert(`Balansga qo'shildi.`);
+                alert("Balansga qo'shildi.");
                 document.getElementById('addBalanceAmount').value = '';
             } else {
                 alert("Summani to'g'ri kiriting!");
