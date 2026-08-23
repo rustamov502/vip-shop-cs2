@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP CSGOO SKINS | Trade Market</title>
+    <!-- Tailwind CSS orqali zamonaviy dizayn -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0b0f19; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .skin-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(234, 179, 8, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER (Yuqori qism) -->
+    <header class="border-b border-gray-800 bg-[#0f172a]/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo va Kanal nomi -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-500">
+                    <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=100&auto=format&fit=crop&q=60" alt="Logo" class="w-full h-full object-cover">
+                </div>
+                <span class="text-lg font-bold tracking-wider text-yellow-400">VIP CSGOO SKINS</span>
+            </div>
+
+            <!-- Foydalanuvchi va Balans -->
+            <div class="flex items-center space-x-4">
+                <div class="bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center space-x-2">
+                    <span class="text-xs text-gray-400">Balans:</span>
+                    <span id="userBalance" class="font-bold text-green-400">0 so'm</span>
+                    <button onclick="openDepositModal()" class="bg-yellow-500 hover:bg-yellow-600 text-black text-xs font-bold px-2 py-1 rounded transition">+</button>
+                </div>
+                <button onclick="loginWithGoogle()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center space-x-2 transition">
+                    <span>Google bilan kirish</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ASOSIY QISM (Main Content) -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow">
+        
+        <!-- Banner: Kanal egasining maxsus bo'limi -->
+        <div class="mb-10 bg-gradient-to-r from-yellow-600/20 via-gray-900 to-gray-900 border border-yellow-500/30 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <span class="bg-yellow-500 text-black text-xs font-extrabold px-2.5 py-1 rounded uppercase">Eksklyuziv</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-white mt-2">Kanal Egasi Skinlari</h1>
+                <p class="text-gray-400 text-sm mt-1">Faqat @vip_csgoo kanali orqali qo'shilgan maxsus va kafolatlangan skinlar.</p>
+            </div>
+            <a href="https://t.me/vip_csgoo" target="_blank" class="mt-4 md:mt-0 bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-5 py-2.5 rounded-xl text-sm transition">
+                Kanalga o'tish ↗
+            </a>
+        </div>
+
+        <!-- Filtr va Qidiruv -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold border-l-4 border-yellow-500 pl-3">Barcha Skinlar</h2>
+            <input type="text" placeholder="Skin nomini qidirish..." class="bg-gray-900 border border-gray-800 text-sm rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 w-64">
+        </div>
+
+        <!-- Skinlar Grid (Vitrina) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            
+            <!-- 1-Skin Namuna -->
+            <div class="skin-card bg-gray-900/80 border border-gray-800 rounded-xl p-4 flex flex-col justify-between transition duration-300">
+                <div>
+                    <div class="bg-gray-800 h-40 rounded-lg flex items-center justify-center overflow-hidden mb-3 relative">
+                        <span class="absolute top-2 left-2 bg-red-600/80 text-[10px] px-2 py-0.5 rounded text-white font-bold">Covert</span>
+                        <img src="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABt3PLfYQJD_9W7m5O0m_7zO6_umntd8-Z0i7nF84ii2Q3j_BY6NW2mIoWcI1NvMljZrFi9w-3v0cK7up3Kn3Vl7CJ2sH3fyxG3hhwYPOF-mfXeFA/300fx300" alt="Skin" class="object-cover h-32">
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-200">★ Bowie Knife | Freehand</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Factory New</p>
+                </div>
+                <div class="mt-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-gray-500 block">Narxi:</span>
+                        <span class="font-bold text-yellow-400 text-sm">1,250,000 so'm</span>
+                    </div>
+                    <button onclick="buySkin('★ Bowie Knife | Freehand', 1250000)" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-xs px-3 py-2 rounded-lg transition">
+                        Sotib olish
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2-Skin Namuna -->
+            <div class="skin-card bg-gray-900/80 border border-gray-800 rounded-xl p-4 flex flex-col justify-between transition duration-300">
+                <div>
+                    <div class="bg-gray-800 h-40 rounded-lg flex items-center justify-center overflow-hidden mb-3 relative">
+                        <span class="absolute top-2 left-2 bg-purple-600/80 text-[10px] px-2 py-0.5 rounded text-white font-bold">Classified</span>
+                        <img src="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABt3PLfYQJD_9W7m5O0m_7zO6_umntd8-Z0i7nF84ii2Q3j_BY6NW2mIoWcI1NvMljZrFi9w-3v0cK7up3Kn3Vl7CJ2sH3fyxG3hhwYPOF-mfXeFA/300fx300" alt="Skin" class="object-cover h-32">
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-200">AK-47 | Asiimov</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Field-Tested</p>
+                </div>
+                <div class="mt-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-gray-500 block">Narxi:</span>
+                        <span class="font-bold text-yellow-400 text-sm">450,000 so'm</span>
+                    </div>
+                    <button onclick="buySkin('AK-47 | Asiimov', 450000)" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-xs px-3 py-2 rounded-lg transition">
+                        Sotib olish
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 bg-[#0f172a] py-6 text-center text-xs text-gray-500">
+        <p>© 2026 VIP CSGOO SKINS. Barcha huquqlar himoyalangan.</p>
+        <p class="mt-1">Savollar bo'yicha: <a href="https://t.me/kriptochi" class="text-yellow-400 hover:underline">@kriptochi</a></p>
+    </footer>
+
+    <!-- BALANS TO'LDIRISH MODAL OYNASI -->
+    <div id="depositModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center z-50">
+        <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-96 relative">
+            <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">&times;</button>
+            <h3 class="text-lg font-bold text-yellow-400 mb-4">Balansni To'ldirish</h3>
+            <p class="text-xs text-gray-400 mb-4">Quyidagi karta raqamiga kerakli summani o'tkazing va chekni yuboring.</p>
+            
+            <div class="bg-gray-800 p-3 rounded-xl mb-4 border border-gray-700">
+                <span class="text-[10px] text-gray-400 block">O'tkazma uchun karta (Uzcard/Humo):</span>
+                <span class="font-mono font-bold text-white text-base">8600 1234 5678 9010</span>
+                <span class="text-xs text-gray-300 block mt-1">Egasi: V. SKINS</span>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs text-gray-400 block mb-1">O'tkazilgan summa (so'm):</label>
+                    <input type="number" id="depositAmount" placeholder="Masalan: 50000" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-yellow-500">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-400 block mb-1">Chek rasmi yoki kvitansiya raqami:</label>
+                    <input type="file" class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-yellow-500 file:text-black hover:file:bg-yellow-400">
+                </div>
+                <button onclick="submitDeposit()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2.5 rounded-lg text-sm transition mt-2">
+                    So'rov yuborish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDepositModal() { document.getElementById('depositModal').classList.remove('hidden'); }
+        function closeDepositModal() { document.getElementById('depositModal').classList.add('hidden'); }
+        function loginWithGoogle() { alert("Google orqali kirish moduli ulanmoqda..."); }
+        function buySkin(name, price) { alert(name + " skinini sotib olish uchun avval Trade Link kiriting va balansingizni to'ldiring!"); }
+        function submitDeposit() {
+            let amount = document.getElementById('depositAmount').value;
+            if(!amount) { alert("Iltimos, summani kiriting!"); return; }
+            alert(amount + " so'm bo'yicha to'lov so'rovi yuborildi! Admin tasdiqlagach balansga qo'shiladi.");
+            closeDepositModal();
+        }
+    </script>
+</body>
+</html>
