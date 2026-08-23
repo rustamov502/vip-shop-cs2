@@ -3,156 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP CSGOO SKINS | Trade Market</title>
-    <!-- Tailwind CSS orqali zamonaviy dizayn -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CS2 VIP Shop</title>
     <style>
-        body { background-color: #0b0f19; color: #f3f4f6; font-family: 'Inter', sans-serif; }
-        .skin-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(234, 179, 8, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #334155; padding-bottom: 15px; flex-wrap: wrap; gap: 15px; }
+        h1 { color: #38bdf8; font-size: 24px; }
+        
+        .user-panel { display: flex; align-items: center; gap: 15px; background: #1e293b; padding: 10px 15px; border-radius: 8px; border: 1px solid #334155; }
+        .balance { color: #22c55e; font-weight: bold; font-size: 18px; }
+        .admin-btn { background: #eab308; color: #000; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .admin-btn:hover { background: #ca8a04; }
+
+        /* Trade Link qismi */
+        .trade-section { background: #1e293b; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #334155; display: flex; gap: 10px; align-items: center; }
+        .trade-section input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; }
+        .trade-section button { background: #38bdf8; color: #000; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: #1e293b; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #334155; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: #38bdf8; }
+        .card img { width: 100%; height: 140px; object-fit: contain; margin-bottom: 10px; }
+        .card h3 { font-size: 16px; margin-bottom: 5px; }
+        .card p { color: #38bdf8; font-weight: bold; margin-bottom: 15px; }
+        .buy-btn { background: #22c55e; color: white; border: none; padding: 10px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .buy-btn:hover { background: #16a34a; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; }
+        .modal-content { background: #1e293b; padding: 25px; border-radius: 12px; width: 350px; border: 1px solid #334155; }
+        .modal-content h2 { margin-bottom: 15px; font-size: 20px; color: #38bdf8; }
+        .modal-content input { width: 100%; padding: 10px; margin-bottom: 10px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; }
+        .modal-content button { width: 100%; padding: 10px; background: #38bdf8; border: none; color: #000; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .close-btn { background: #ef4444 !important; color: white !important; margin-top: 5px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body>
 
-    <!-- HEADER (Yuqori qism) -->
-    <header class="border-b border-gray-800 bg-[#0f172a]/80 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo va Kanal nomi -->
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-500">
-                    <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=100&auto=format&fit=crop&q=60" alt="Logo" class="w-full h-full object-cover">
-                </div>
-                <span class="text-lg font-bold tracking-wider text-yellow-400">VIP CSGOO SKINS</span>
-            </div>
-
-            <!-- Foydalanuvchi va Balans -->
-            <div class="flex items-center space-x-4">
-                <div class="bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center space-x-2">
-                    <span class="text-xs text-gray-400">Balans:</span>
-                    <span id="userBalance" class="font-bold text-green-400">0 so'm</span>
-                    <button onclick="openDepositModal()" class="bg-yellow-500 hover:bg-yellow-600 text-black text-xs font-bold px-2 py-1 rounded transition">+</button>
-                </div>
-                <button onclick="loginWithGoogle()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center space-x-2 transition">
-                    <span>Google bilan kirish</span>
-                </button>
-            </div>
+    <header>
+        <h1>⚡ CS2 VIP Shop</h1>
+        <div class="user-panel">
+            <span>Balans: <span class="balance" id="userBalance">$500.00</span></span>
+            <button class="admin-btn" onclick="openAdmin()">Admin Panel</button>
         </div>
     </header>
 
-    <!-- ASOSIY QISM (Main Content) -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow">
-        
-        <!-- Banner: Kanal egasining maxsus bo'limi -->
-        <div class="mb-10 bg-gradient-to-r from-yellow-600/20 via-gray-900 to-gray-900 border border-yellow-500/30 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center">
-            <div>
-                <span class="bg-yellow-500 text-black text-xs font-extrabold px-2.5 py-1 rounded uppercase">Eksklyuziv</span>
-                <h1 class="text-2xl md:text-3xl font-extrabold text-white mt-2">Kanal Egasi Skinlari</h1>
-                <p class="text-gray-400 text-sm mt-1">Faqat @vip_csgoo kanali orqali qo'shilgan maxsus va kafolatlangan skinlar.</p>
-            </div>
-            <a href="https://t.me/vip_csgoo" target="_blank" class="mt-4 md:mt-0 bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-5 py-2.5 rounded-xl text-sm transition">
-                Kanalga o'tish ↗
-            </a>
-        </div>
+    <!-- Trade Link kiritish -->
+    <div class="trade-section">
+        <input type="text" id="tradeLinkInput" placeholder="Steam Trade URL havolangizni kiriting...">
+        <button onclick="saveTradeLink()">Saqlash</button>
+    </div>
 
-        <!-- Filtr va Qidiruv -->
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold border-l-4 border-yellow-500 pl-3">Barcha Skinlar</h2>
-            <input type="text" placeholder="Skin nomini qidirish..." class="bg-gray-900 border border-gray-800 text-sm rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 w-64">
-        </div>
+    <!-- Skinlar ro'yxati -->
+    <div class="container" id="product-list"></div>
 
-        <!-- Skinlar Grid (Vitrina) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            
-            <!-- 1-Skin Namuna -->
-            <div class="skin-card bg-gray-900/80 border border-gray-800 rounded-xl p-4 flex flex-col justify-between transition duration-300">
-                <div>
-                    <div class="bg-gray-800 h-40 rounded-lg flex items-center justify-center overflow-hidden mb-3 relative">
-                        <span class="absolute top-2 left-2 bg-red-600/80 text-[10px] px-2 py-0.5 rounded text-white font-bold">Covert</span>
-                        <img src="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABt3PLfYQJD_9W7m5O0m_7zO6_umntd8-Z0i7nF84ii2Q3j_BY6NW2mIoWcI1NvMljZrFi9w-3v0cK7up3Kn3Vl7CJ2sH3fyxG3hhwYPOF-mfXeFA/300fx300" alt="Skin" class="object-cover h-32">
-                    </div>
-                    <h3 class="font-bold text-sm text-gray-200">★ Bowie Knife | Freehand</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Factory New</p>
-                </div>
-                <div class="mt-4 flex items-center justify-between">
-                    <div>
-                        <span class="text-xs text-gray-500 block">Narxi:</span>
-                        <span class="font-bold text-yellow-400 text-sm">1,250,000 so'm</span>
-                    </div>
-                    <button onclick="buySkin('★ Bowie Knife | Freehand', 1250000)" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-xs px-3 py-2 rounded-lg transition">
-                        Sotib olish
-                    </button>
-                </div>
-            </div>
-
-            <!-- 2-Skin Namuna -->
-            <div class="skin-card bg-gray-900/80 border border-gray-800 rounded-xl p-4 flex flex-col justify-between transition duration-300">
-                <div>
-                    <div class="bg-gray-800 h-40 rounded-lg flex items-center justify-center overflow-hidden mb-3 relative">
-                        <span class="absolute top-2 left-2 bg-purple-600/80 text-[10px] px-2 py-0.5 rounded text-white font-bold">Classified</span>
-                        <img src="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABt3PLfYQJD_9W7m5O0m_7zO6_umntd8-Z0i7nF84ii2Q3j_BY6NW2mIoWcI1NvMljZrFi9w-3v0cK7up3Kn3Vl7CJ2sH3fyxG3hhwYPOF-mfXeFA/300fx300" alt="Skin" class="object-cover h-32">
-                    </div>
-                    <h3 class="font-bold text-sm text-gray-200">AK-47 | Asiimov</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Field-Tested</p>
-                </div>
-                <div class="mt-4 flex items-center justify-between">
-                    <div>
-                        <span class="text-xs text-gray-500 block">Narxi:</span>
-                        <span class="font-bold text-yellow-400 text-sm">450,000 so'm</span>
-                    </div>
-                    <button onclick="buySkin('AK-47 | Asiimov', 450000)" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-xs px-3 py-2 rounded-lg transition">
-                        Sotib olish
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-gray-800 bg-[#0f172a] py-6 text-center text-xs text-gray-500">
-        <p>© 2026 VIP CSGOO SKINS. Barcha huquqlar himoyalangan.</p>
-        <p class="mt-1">Savollar bo'yicha: <a href="https://t.me/kriptochi" class="text-yellow-400 hover:underline">@kriptochi</a></p>
-    </footer>
-
-    <!-- BALANS TO'LDIRISH MODAL OYNASI -->
-    <div id="depositModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center z-50">
-        <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-96 relative">
-            <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">&times;</button>
-            <h3 class="text-lg font-bold text-yellow-400 mb-4">Balansni To'ldirish</h3>
-            <p class="text-xs text-gray-400 mb-4">Quyidagi karta raqamiga kerakli summani o'tkazing va chekni yuboring.</p>
-            
-            <div class="bg-gray-800 p-3 rounded-xl mb-4 border border-gray-700">
-                <span class="text-[10px] text-gray-400 block">O'tkazma uchun karta (Uzcard/Humo):</span>
-                <span class="font-mono font-bold text-white text-base">8600 1234 5678 9010</span>
-                <span class="text-xs text-gray-300 block mt-1">Egasi: V. SKINS</span>
-            </div>
-
-            <div class="space-y-3">
-                <div>
-                    <label class="text-xs text-gray-400 block mb-1">O'tkazilgan summa (so'm):</label>
-                    <input type="number" id="depositAmount" placeholder="Masalan: 50000" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-yellow-500">
-                </div>
-                <div>
-                    <label class="text-xs text-gray-400 block mb-1">Chek rasmi yoki kvitansiya raqami:</label>
-                    <input type="file" class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-yellow-500 file:text-black hover:file:bg-yellow-400">
-                </div>
-                <button onclick="submitDeposit()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2.5 rounded-lg text-sm transition mt-2">
-                    So'rov yuborish
-                </button>
-            </div>
+    <!-- Admin Panel Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <h2>Yangi Skin Qo'shish</h2>
+            <input type="text" id="skinName" placeholder="Skin nomi">
+            <input type="number" id="skinPriceNum" placeholder="Narxi ($ da, masalan: 120)">
+            <input type="text" id="skinImg" placeholder="Rasm havolasi (URL)">
+            <button onclick="addSkin()">Qo'shish</button>
+            <button class="close-btn" onclick="closeAdmin()">Yopish</button>
         </div>
     </div>
 
     <script>
-        function openDepositModal() { document.getElementById('depositModal').classList.remove('hidden'); }
-        function closeDepositModal() { document.getElementById('depositModal').classList.add('hidden'); }
-        function loginWithGoogle() { alert("Google orqali kirish moduli ulanmoqda..."); }
-        function buySkin(name, price) { alert(name + " skinini sotib olish uchun avval Trade Link kiriting va balansingizni to'ldiring!"); }
-        function submitDeposit() {
-            let amount = document.getElementById('depositAmount').value;
-            if(!amount) { alert("Iltimos, summani kiriting!"); return; }
-            alert(amount + " so'm bo'yicha to'lov so'rovi yuborildi! Admin tasdiqlagach balansga qo'shiladi.");
-            closeDepositModal();
+        // Foydalanuvchi balansi va saqlangan trade link
+        let balance = 500.00;
+        let tradeLink = "";
+
+        let products = [
+            { name: "★ Karambit | Doppler", price: 450.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovb-Sv1Jz3u33eTxS_9mkgL-OmuLwNoTdl3lW7Yt0jeH--NunkwXgrRBsN2v2d9SWcw9qZwvU81G6yOm-jJLu7p6an3MwvXE8ZCsj2wQz/360fx360f" },
+            { name: "AK-47 | Vulcan", price: 120.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08-jq5WYh8j8J4Tdl3lW7Yt0jL2W89qh3lG2r0FsMGCgd4_DdwVsN1zRqFO_w-3r1MW9tc7Lz3JnvSA8ZCsjCq-P3-A/360fx360f" },
+            { name: "M4A4 | Asiimov", price: 85.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITBhGBU_MZZjOvA89jziwewrhBmZj2hd9STdVA8ZwnXr1jll7--gpC9upvLnXE37iQm5nvfmhe20ktOceVxx6W-O06cQasbOg/360fx360f" }
+        ];
+
+        function renderProducts() {
+            const list = document.getElementById('product-list');
+            list.innerHTML = "";
+            products.forEach((p) => {
+                list.innerHTML += `
+                    <div class="card">
+                        <img src="${p.img}" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p>$${p.price.toFixed(2)}</p>
+                        <button class="buy-btn" onclick="buySkin('${p.name}', ${p.price})">Sotib olish</button>
+                    </div>
+                `;
+            });
         }
+
+        function updateBalanceUI() {
+            document.getElementById('userBalance').innerText = "$" + balance.toFixed(2);
+        }
+
+        function saveTradeLink() {
+            const link = document.getElementById('tradeLinkInput').value;
+            if(link.trim() !== "") {
+                tradeLink = link;
+                alert("Trade Link muvaffaqiyatli saqlandi!");
+            } else {
+                alert("Iltimos, to'g'ri Trade Link kiriting!");
+            }
+        }
+
+        function buySkin(name, price) {
+            if(!tradeLink) {
+                alert("Diqqat! Skinni olish uchun oldin Steam Trade Link havolangizni kiriting va saqlang.");
+                return;
+            }
+
+            if(balance >= price) {
+                balance -= price;
+                updateBalanceUI();
+                alert(`Tabriklayman! ${name} muvaffaqiyatli sotib olindi.\nTez orada Trade taklif yuboriladi!`);
+            } else {
+                alert("Xatolik: Balansingizda mablag' yetarli emas!");
+            }
+        }
+
+        function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
+        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+
+        function addSkin() {
+            let name = document.getElementById('skinName').value;
+            let price = parseFloat(document.getElementById('skinPriceNum').value);
+            let img = document.getElementById('skinImg').value;
+
+            if(name && !isNaN(price) && img) {
+                products.push({ name, price, img });
+                renderProducts();
+                closeAdmin();
+                document.getElementById('skinName').value = '';
+                document.getElementById('skinPriceNum').value = '';
+                document.getElementById('skinImg').value = '';
+            } else {
+                alert("Barcha maydonlarni to'g'ri to'ldiring!");
+            }
+        }
+
+        renderProducts();
+        updateBalanceUI();
     </script>
 </body>
 </html>
